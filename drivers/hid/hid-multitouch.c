@@ -643,11 +643,11 @@ static void mt_complete_slot(struct mt_device *td, struct input_dev *input)
 		input_mt_slot(input, slotnum);
 		input_mt_report_slot_state(input, MT_TOOL_FINGER, active);
 		if (active) {
-			/* this finger is in proximity of the sensor */
-			int wide = (s->w > s->h);
-			/* divided by two to match visual scale of touch */
-			int major = max(s->w, s->h) >> 1;
-			int minor = min(s->w, s->h) >> 1;
+			/* Bruce Barnes, 2020-02-21 */
+			/* HID3 use normal width and height for touch event report */
+			int wide = 0;		/* orientation is not used */
+			int major = s->w;	/* major is always touch width */
+			int minor = s->h;	/* minor is always touch height */
 
 			input_event(input, EV_ABS, ABS_MT_POSITION_X, s->x);
 			input_event(input, EV_ABS, ABS_MT_POSITION_Y, s->y);
