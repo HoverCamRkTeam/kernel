@@ -10,21 +10,16 @@
 		stdout-path = "serial2:1500000n8";
 	};
 
-	vcc_host1_5v: vcc_otg_5v: vcc5v0-host-regulator {
+	vcc_otg_5v: vcc5v0-host-regulator {
 		compatible = "regulator-fixed";
 		enable-active-high;
-		gpio = <&gpio1 26 GPIO_ACTIVE_HIGH>;
+		gpio = <&gpio3 RK_PA2 GPIO_ACTIVE_HIGH>;
 		pinctrl-names = "default";
-		pinctrl-0 = <&host_vbus_drv>;
-		regulator-name = "vcc_host1_5v";
+		pinctrl-0 = <&otg_vbus_drv>;
+		regulator-name = "vcc_otg_5v";
 		regulator-always-on;
 	};
 
-};
-
-&u2phy_host {
-	phy-supply = <&vcc_host1_5v>;
-	status = "okay";
 };
 
 &u2phy_otg {
@@ -34,9 +29,9 @@
 
 &pinctrl {
 	usb_host {
-		host_vbus_drv: host-vbus-drv {
+		otg_vbus_drv: host-vbus-drv {
 			rockchip,pins =
-				<1 26 RK_FUNC_GPIO &pcfg_pull_none>;
+				<3 RK_PA2 RK_FUNC_GPIO &pcfg_input_high>;
 		};
 	};
 };
