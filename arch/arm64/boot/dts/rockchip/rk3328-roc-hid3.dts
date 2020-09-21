@@ -78,8 +78,19 @@
 	};
 };
 
+&gmac2io {
+	status = "disabled";
+};
+
 &i2c0 {
 	status = "okay";
 	clock-frequency = <400000>;
 };
+
+&uart0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart0_xfer>;
+	status = "okay";
+};
+
 
