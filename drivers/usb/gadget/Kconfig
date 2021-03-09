@@ -187,6 +187,9 @@ config USB_F_UAC1
 config USB_F_UAC2
 	tristate
 
+config USB_F_UACHC
+	tristate
+
 config USB_F_UVC
 	tristate
 
@@ -451,6 +454,18 @@ config USB_CONFIGFS_F_UAC2
 	  application may choose to do whatever it wants with the data
 	  received from the USB Host and choose to provide whatever it
 	  wants as audio data to the USB Host.
+
+config USB_CONFIGFS_F_UACHC
+	bool "Audio Class HoverCam"
+	depends on USB_CONFIGFS
+	depends on SND
+	select USB_LIBCOMPOSITE
+	select SND_PCM
+	select USB_F_UACHC
+	help
+	  This Audio function implements the audio interface for the the
+	  HoverCam Solo Air Gadget to transfer audio data to the PC by
+	  combining the functions from UAC1 and UAC2.
 
 config USB_CONFIGFS_F_MIDI
 	bool "MIDI function"
